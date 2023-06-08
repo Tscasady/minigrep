@@ -1,3 +1,6 @@
+use std::fs;
+use std::error::Error;
+
 pub struct Config {
     pub query: String,
     pub file_path: String
@@ -16,3 +19,12 @@ impl Config {
     }
 }
 
+    //The Box... is a trait object. This function will return a type that implements the Error trait,
+//but we don't specify what that type is.
+pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    let contents = fs::read_to_string(config.file_path)?;
+
+    println!("\nText: \n{contents}");
+
+    Ok(())
+}
