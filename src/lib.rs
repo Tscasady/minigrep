@@ -4,11 +4,15 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: &[String]) -> Config {
+    pub fn build(args: &[String]) -> Result<Config, &'static str> {
+        if args.len() < 3 {
+            return Err("not enough arguments")
+        }
+         
         let query = args[1].to_owned();
         let file_path = args[2].to_owned();
 
-        Config { query, file_path }
+        Ok(Config { query, file_path })
     }
 }
 
