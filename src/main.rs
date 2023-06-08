@@ -1,15 +1,15 @@
 use std::env;
 use std::fs;
+use minigrep::Config;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
+    
+    let config = Config::new(&args);
 
-    let query = &args[1];
-    let file_path = &args[2];
+    println!("\nSearching for {} in file {}", config.query, config.file_path);
 
-    println!("\nSearching for {} in file {}", query, file_path);
-
-    let contents = fs::read_to_string(file_path)
+    let contents = fs::read_to_string(config.file_path)
         .expect("Should have been able to read the file");
 
     println!("\nText: \n{contents}");
